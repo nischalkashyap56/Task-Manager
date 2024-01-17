@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Task Manager</title>
+</head>
+<body>
+    {% set logged_in_name = session['name'] %}
+    <div class="container">
+        <h1>Task Manager</h1>
+        <form action="{{ url_for('add_task') }}" method="post">
+            <label for="name">Task:</label>
+            <input type="text" name="name" required>
+
+            <label for="description">Description:</label>
+            <input type="text" name="description" required>
+
+            <label for="deadline">Deadline:</label>
+            <input type="date" name="deadline" required>
+
+            <label for="status">Status:</label>
+            <select type="status" name="status" required>
+                <option value=0>To-Do</option>
+                <option value=1>In-Progress</option>
+                <option value=2>Completed</option>
+            </select>
+            <br>
+            <label for="assignee">Assignee :</label>
+            <select type="assignee" name="assignee">
+                {% for assignee in assignees %}
+                    <option value="{{ assignee }}">{{ assignee }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <button type="submit">Add</button>
+            <br>
+        </form>   
+        
+        <hr>
+
+        <table>
+            <thead>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Assignee</th>
+                <th>Edit Status</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.deadline }}</td>
+                        <td>{{ status_mapping[task.status] }}</td>
+                        <td>{{ task.assignee }}</td>
+                        <td> <select class="edit-status" data-task-id="{{ task._id }}">
+                            <option value="0" {% if task.status == 0 %}selected{% endif %}>To-Do</option>
+                            <option value="1" {% if task.status == 1 %}selected{% endif %}>In-Progress</option>
+                            <option value="2" {% if task.status == 2 %}selected{% endif %}>Completed</option>
+                        </select>
+                        <button class="save-status" data-task-id="{{ task._id }}">Save</button>
+                    </td>
+                        <td> <button class="delete-btn" data-task-id="{{ task._id }}">Delete</button> </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="menu">
+        <p> <a href="{{ url_for('home') }}" class="homepage-button">Homepage</a></p>
+    </div>
+</body>
+<!-- JavaScript to handle delete button click -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var taskId = button.getAttribute('data-task-id');
+
+                // Send an AJAX request to delete the task
+                fetch('/delete_task/' + taskId, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    alert(data.message);
+                    // Reload the page or update the table based on your needs
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                    alert('An error occurred while deleting the task.');
+                });
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var saveButtons = document.querySelectorAll('.save-status');
+
+        saveButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var taskId = button.getAttribute('data-task-id');
+                var selectedStatus = document.querySelector('.edit-status[data-task-id="' + taskId + '"]').value;
+
+                // Send an AJAX request to update the task status
+                fetch('/update_status/' + taskId, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        status: selectedStatus
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    alert(data.message);
+                    // Reload the page or update the table based on your needs
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                    alert('An error occurred while updating the task status.');
+                });
+            });
+        });
+    });
+
+</script>
+
+
+</html>

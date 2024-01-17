@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home_style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+  {% set logged_in_name = session['name'] %}
+    <div class="nav">
+        <h2>Task Mind</h2>
+        <div class="menu">
+          <p> <a href="{{ url_for('index') }}">Your Tasks</a></p>
+          <p> <a href="{{ url_for('login') }}">Get Started</a></p>
+          <p> <a href="{{ url_for('logout') }}"> Logout </a></p>
+        </div>
+      </div>
+      
+      <div class="hero">
+        <div class="hero-text">
+          <h1>The only task manager you need</h1>
+          <p>Say goodbye to manual task assignments and tedious project tracking. <br>
+            TaskMind AI combines the power of artificial intelligence <br>
+            with intuitive task management to revolutionize the way you work.</p>
+              
+          <div class="buttons">
+            <a class="button primary" href="{{url_for('login')}}" >Get Started</a>
+          </div>
+          <div class="menu">
+            <p> <a href="{{ url_for('leader') }}" class="homepage-button">Leader</a></p>
+          </div>
+          <div class="image-container">
+            <img src="static/images/landing_image.png" alt="landing_image">
+        </div>
+        </div>
+        <div class="blob-cont">
+          <div class="yellow blob"></div>
+          <div class="red blob"></div>
+          <div class="green blob"></div>
+        </div>
+      </div>
+      <svg>
+        <filter id='noiseFilter'>
+          <feTurbulence 
+            type='fractalNoise' 
+            baseFrequency='0.6' 
+            stitchTiles='stitch'/>
+           <feColorMatrix in="colorNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+              <feComposite operator="in" in2="SourceGraphic" result="monoNoise"/>
+              <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+        </filter>  
+      </svg>    
+</body>
+</html>
+

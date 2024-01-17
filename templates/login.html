@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Simple login form with social login buttons using HTML and CSS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+    body {
+      height: 100vh;
+      margin: 0;  
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 3em;
+      background-color: #ffffff;
+      font-family: "Recoleta";
+      margin: 0 10em;
+    }
+
+    body::before,
+    body::after {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 40%;
+  }
+    body::before {
+      background: rgb(237, 233, 233);
+      filter: url(#noiseFilter);
+  }
+
+    .login-form h1 {
+      font-size: 36px;
+      text-align: center;
+      color: #265073;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+    .login-form .social-icon {
+        width: 100%;
+        font-size: 20px;
+        padding-top: 20px;
+        color: #fff;
+        text-align: center;
+        float: left;
+    }
+    .login-form {
+        background: #b0578c36;
+        width: 400px;
+        border-radius: 6px;
+        margin: 0 auto;
+        display: table;
+        padding: 15px 30px 30px;
+        box-sizing: border-box;
+        margin-top: 16%;
+    }
+
+    .form-group {
+      float: left;
+      width: 100%;
+      margin: 0 0 15px;
+      position: relative;
+    }
+    .login-form input {
+        width: 100%;
+        padding: 5px;
+        height: 56px;
+        border-radius: 74px;
+        border: 0.8px solid #161616;
+        box-sizing: border-box;
+        font-size: 15px;
+        padding-left: 75px;
+    }
+    .login-form .form-group .input-icon {
+        font-size: 15px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        border-radius: 25px;
+        bottom: 0;
+        height: 100%;
+        padding-left: 35px;
+        color: #666;
+    }
+    .login-form .login-btn {
+      background: #265073;
+      padding: 11px 50px;
+      border-color: #265073;
+      color: #fff;
+      text-align: center;
+      margin: 0 auto;
+      font-size: 20px;
+      border: 1px solid #265073;
+      border-radius: 44px;
+      width: 50%;
+      height: 56px;
+      cursor: pointer;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+    .login-form .reset-psw {
+      float: left;
+      width: 100%;
+      text-decoration: none;
+      color: #265073;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 11px;
+    }
+    .login-form .social-icon button {
+        font-size: 20px;
+        color: white;
+        height: 50px;
+        width: 50px;
+        background: #265073;
+        border-radius: 60%;
+        margin: 0px 10px;
+        border: none;
+        cursor: pointer;
+    }
+    .login-form button:hover{
+      opacity: 0.9;
+    }
+    .login-form .seperator {
+      float: left;
+      width: 100%;
+      border-top: 1px solid #ccc;
+      text-align: center;
+      margin: 50px 0 0;
+    }
+    .login-form .seperator b {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      text-align: center;
+      line-height: 40px;
+      background: #fff;
+      display: inline-block;
+      border: 1px solid #e0e0e0;
+      border-radius: 50%;
+      position: relative;
+      top: -22px;
+      z-index: 1;
+    }
+    .login-form p {
+      float: left;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+    @media screen and (max-width:767px) {
+    .login-form {
+        width: 90%;
+        padding: 15px 15px 30px;
+    }
+    }
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+    }
+    
+    /* Avatar image */
+    img.avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;  
+    }
+    </style>
+</head>
+<body>
+  <div class="background-container">
+  <div class="login-form">
+    <form>
+      <h1>Login</h1>
+       <div class="imgcontainer">
+    <img src="https://img1.freepng.fr/20180331/ffe/kisspng-computer-icons-user-clip-art-user-5abf13dad7aed4.5909364715224718988835.jpg" alt="Avatar" class="avatar">
+  </div>
+      <div class="form-group">
+        <input type="email" name="email" placeholder="E-mail Address">
+        <span class="input-icon"><i class="fa fa-envelope"></i></span>
+      </div>
+      <div class="form-group">
+        <input type="password" name="psw" placeholder="Password">
+        <span class="input-icon"><i class="fa fa-lock"></i></span>
+      </div>      
+      <button class="login-btn">Login</button>      
+      <a class="reset-psw" href="#">Forgot your password?</a>
+      <div class="seperator"><b>or</b></div>
+      <p>Sign in with your social media account</p>
+      <!-- Social login buttons -->
+      <div class="social-icon">
+	  
+        <button type="button"><i class="fa fa-twitch"></i></button>
+        <button type="button"><i class="fa fa-facebook"></i></button>
+		    <button type="button"><i class='fa fa-instagram'></i></button>
+		    <button type="button"><i class='fa fa-google'></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+  <svg>
+    <filter id='noiseFilter'>
+      <feTurbulence 
+        type='fractalNoise' 
+        baseFrequency='0.6' 
+        stitchTiles='stitch'/>
+       <feColorMatrix in="colorNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+          <feComposite operator="in" in2="SourceGraphic" result="monoNoise"/>
+          <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+    </filter>  
+  </svg>    
+</body>
+</html>
