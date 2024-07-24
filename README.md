@@ -6,9 +6,9 @@ A task management tool using Python and MongoDB that can add, edit or delete tas
 Clone this repository to your system with the following command in your Git GUI:
 
 ```
-git clone [https://github.com/Nischal56/Hotel_Booking.git](https://github.com/nischalkashyap56/Task-Manager
+git clone https://github.com/nischalkashyap56/Task-Manager.git
 ```
-## Implementations
+## Functionalities
 
 The following project is implemented using Python and certain Machine Learning libraries like TensorFlow and PyTorch. Some of the functionalities implemented are :
 ```
